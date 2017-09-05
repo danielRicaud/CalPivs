@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 import Paper from 'material-ui/Paper';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import DrawerSimpleExample from './drawer.js';
+
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import FlatButton from 'material-ui/FlatButton';
 
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -18,22 +23,28 @@ const Map = ReactMapboxGl({
   accessToken
 });
 
+
+
+function handleTouchTap() {
+  alert('onClick triggered on the title component');
+}
+
 class App extends Component {
   render() {
     return (
       <MuiThemeProvider>
 
       <div className="App">
-        <div className="App-header">
-            <Toolbar position="static"
-            style={{
-                backgroundColor: '#303841',
-              }}
-            >
-            <ToolbarTitle text="CalPIVS" />  
-          </Toolbar>    
+        <div className="App-header">    
+          <AppBar
+            title={<span >CalPIVS</span>}
+            style={{ cursor: 'pointer', backgroundColor: '#303841' }}
+            onTitleTouchTap={handleTouchTap}
+            iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+            iconElementRight={<DrawerSimpleExample />}
+          />
         </div>
-        
+ 
         <Paper style={{height: "90vh",
               width: "90vw"}} zDepth={1} rounded={false}>
           <Map
@@ -50,8 +61,9 @@ class App extends Component {
               </Layer>
           </Map>  
         </Paper>    
-  </div>
-    </MuiThemeProvider>
+      </div>
+
+      </MuiThemeProvider>
 
     );
   }
